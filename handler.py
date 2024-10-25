@@ -116,7 +116,7 @@ async def view_scores(update: Update, context: CallbackContext) -> None:
 
             if scores:
                 scores_text = '\n'.join([f'{subject}: {score}' for subject, score in scores])
-                await update.message.reply_text(f'Баллы для {first_name} {last_name}:\n{scores_text}')
+                await update.message.reply_text(f'Баллы ЕГЭ для ученика "{first_name} {last_name}":\n{scores_text}')
             else:
                 await update.message.reply_text(SCORES_NOT_FOUND.format(first_name=first_name, last_name=last_name))
 

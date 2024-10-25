@@ -43,7 +43,7 @@ def student_exists(first_name, last_name):
 
 
 def add_scores(first_name, last_name, subject, score):
-    # Добавление баллов по предмету
+    # Добавление или обновление баллов по предмету
     connect = sqlite3.connect('students.db')
     cursor = connect.cursor()
     cursor.execute("SELECT id FROM students WHERE first_name = ? AND last_name = ?", (first_name, last_name))
@@ -52,10 +52,17 @@ def add_scores(first_name, last_name, subject, score):
         connect.close()
         return False
     student_id = student[0]
-    cursor.execute("INSERT INTO scores (student_id, subject, score) VALUES (?, ?, ?)", (student_id, subject, score))
+
+    # Проверка на существование баллов по предмету
+    cursor.execute("SELECT id FROM scores WHERE student_id = ? AND subject = ?", (student_id, subject))
+    score_record = cursor.fetchone()
+    if score_record is None:
+        cursor.execute("INSERT INTO scores (student_id, subject, score) VALUES (?, ?, ?)", (student_id, subject, score))
+    else:
+        cursor.execute("UPDATE scores SET score = ? WHERE student_id = ? AND subject = ?", (score, student_id, subject))
     connect.commit()
     connect.close()
-    print(f'Баллы по предмету {subject} для {first_name} {last_name} сохранены в базе данных.')
+    print(f'Баллы по предмету "{subject}" для "{first_name} {last_name}" сохранены в базе данных.')
     return True
 
 
