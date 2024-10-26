@@ -13,8 +13,8 @@ Pupil's Helper Bot - это Telegram-бот, предназначенный дл
 1. Клонируйте репозиторий:
 
     ```sh
-    git clone https://github.com/yourusername/pupils-helper-bot.git
-    cd pupils-helper-bot
+    git clone git clone https://github.com/Evkasonka/pupils_helper_bot.git
+    cd Test_task_TG_bot
     ```
 
 2. Создайте виртуальное окружение и активируйте его:
